@@ -24,6 +24,22 @@
         yum:
           name: tomcat
           state: latest
+      - name: ensure tomcat-webapps is at the latest version
+        yum:
+          name: tomcat-webapps
+          state: latest
+      - name: ensure tomcat-admin-webapps is at the latest version
+        yum:
+          name: tomcat-admin-webapps
+          state: latest
+      - name: ensure tomcat-docs-webapp is at the latest version
+        yum:
+          name: tomcat-docs-webapp
+          state: latest
+      - name: ensure tomcat-javadoc is at the latest version
+        yum:
+          name: tomcat-javadoc
+          state: latest
       - name: ensure tomcat is running
         service:
           name: tomcat
