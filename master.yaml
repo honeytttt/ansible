@@ -10,11 +10,53 @@
         service:
           name: httpd
           state: started
-
-   - name: enable service httpd 
-     systemd:
-     name: httpd
-     enabled: yes
-
-
-
+      - name: enable service httpd 
+        systemd:
+          name: httpd
+          enabled: yes
+      - name: Download Java
+        command: "curl -LO -H 'Cookie: oraclelicense=accept-securebackup-cookie' 'https://download.oracle.com/otn-pub/java/jdk/14.0.2+12/205943a0976c4ed48cb16f1043c5c647/jdk-14.0.2_linux-x64_bin.rpm'"
+      - name: install JDK 14 from a local file
+        yum:
+          name: jdk-14.0.2_linux-x64_bin.rpm
+          state: present
+      - name: ensure tomcat is at the latest version
+        yum:
+          name: tomcat
+          state: latest
+      - name: ensure tomcat is running
+        service:
+          name: tomcat
+          state: started
+      - name: enable service tomcat
+        systemd:
+          name: tomcat
+          enabled: yes
+      - name: Download mysql
+        command: "wget https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm"
+      - name: adding sw repositories
+        command: "sudo md5sum mysql80-community-release-el7-3.noarch.rpm"
+      - name: Install mysql repositorY
+        yum:
+          name: mysql80-community-release-el7-3.noarch.rpm
+          state: present        
+      - name: Install MySQL with yum
+        yum:
+          name: mysql-server
+          state: present
+      - name: ensure mysql is running
+        service:
+          name: mysqld
+          state: started
+      - name: enable service mysql-server
+        systemd:
+          name: mysqld
+          enabled: yes
+      - name: ensure telnet is at the latest version
+        yum:
+          name: telnet
+          state: latest
+      - name: ensure nslookup is at the latest version
+        yum:
+          name: bind-utils
+          state: latest
