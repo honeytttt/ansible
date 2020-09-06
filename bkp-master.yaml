@@ -11,10 +11,10 @@
           name: httpd
           state: started
 
-   - name: enable service httpd 
-     systemd:
-     name: httpd
-     enabled: yes
+- name: enable service httpd 
+  systemd:
+    name: httpd
+    enabled: yes
 
 
 
